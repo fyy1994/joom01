@@ -37,16 +37,16 @@ class GetnoshippingSpider(scrapy.Spider):
         cursor = db.cursor()
 
         # SQL 查询还没有查询物流信息语句
-        sql = "SELECT order_id FROM shipping WHERE tracking_true = 0 "
-        # i = 0
+        sql = "SELECT shipping.order_id FROM shipping INNER JOIN jorder ON shipping.order_id = jorder.order_id  WHERE shipping.tracking_true = 0 AND jorder.order_status != 'refunded'"
+        i = 0
         try:
             # 执行SQL语句
             cursor.execute(sql)
             # 获取所有记录列表
             results = cursor.fetchall()
             for row in results:
-                # i = i + 1
-                # print(i)
+                i = i + 1
+                print(i)
                 order_id = row[0]
                 # 链接字符串
                 # print(url + fname)
@@ -79,6 +79,7 @@ class GetnoshippingSpider(scrapy.Spider):
         # print(response.text)
 
         shipping_re = json.loads(response.text)
+        # print(shipping_re)
         # 处理数据
         order_id = str(re.compile(r"(?<==)(.+?)\b").search(response.request.url).group(0))
         # 如果有结果返回的类型是list 否则 为false

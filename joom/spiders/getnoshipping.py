@@ -9,7 +9,8 @@ import re
 class GetnoshippingSpider(scrapy.Spider):
     name = 'getnoshipping'
     allowed_domains = ['joom.com']
-    start_urls = ['http://joom.com/']
+    # start_urls = ['http://joom.com/']
+    # handle_httpstatus_list = [404]
 
     def start_requests(self):
 
@@ -38,7 +39,7 @@ class GetnoshippingSpider(scrapy.Spider):
 
         # SQL 查询还没有查询物流信息语句
         sql = "SELECT order_id.order_id  FROM order_id LEFT JOIN shipping ON order_id.order_id = shipping.order_id WHERE shipping.order_id IS NULL"
-        i = 1
+        i = 0
         try:
             # 执行SQL语句
             cursor.execute(sql)
@@ -49,7 +50,7 @@ class GetnoshippingSpider(scrapy.Spider):
                 print(i)
                 order_id = row[0]
                 # 链接字符串
-                # print(url + fname)
+                # print(url + order_id)
                 yield scrapy.Request(url=url + order_id, headers=headers, callback=self.parse)
 
         except:
@@ -58,10 +59,7 @@ class GetnoshippingSpider(scrapy.Spider):
         # 关闭数据库连接
         db.close()
 
-
     def parse(self, response):
-
-        # print(response.request.url)
 
         # 打开数据库连接
         db = pymysql.Connect(
@@ -79,6 +77,13 @@ class GetnoshippingSpider(scrapy.Spider):
         # print(response.text)
 
         shipping_re = json.loads(response.text)
+        # print(shipping_re)
+        # if shipping_re['code'] == 1000 :
+        #     sql = "INSERT INTO shipping(order_id, tracking_true, delivered, depth, tracking_id, trackingNumber, arrived, passedCustoms) \
+        #                    VALUES ('%s',%s,%s,'%s','%s','%s',%s,%s)" % \
+        #           (str(re.compile(r"(?<==)(.+?)\b").search(response.request.url).group(0)), True, False, 10, '0', '0', False, '0')
+        # else:
+
         # 处理数据
         order_id = str(re.compile(r"(?<==)(.+?)\b").search(response.request.url).group(0))
         # 如果有结果返回的类型是list 否则 为false
@@ -97,6 +102,7 @@ class GetnoshippingSpider(scrapy.Spider):
         sql = "INSERT INTO shipping(order_id, tracking_true, delivered, depth, tracking_id, trackingNumber, arrived, passedCustoms) \
                VALUES ('%s',%s,%s,'%s','%s','%s',%s,%s)" % \
               (order_id, tracking_true, delivered, depth, tracking_id, trackingNumber, arrived, passedCustoms)
+
         # print(sql)
         try:
             # 执行sql语句
