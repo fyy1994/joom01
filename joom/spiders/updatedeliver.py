@@ -7,7 +7,7 @@ import re
 
 
 class GetnoshippingSpider(scrapy.Spider):
-    name = 'getnoshipped'
+    name = 'updatedeliver'
     allowed_domains = ['joom.com']
     # start_urls = ['http://joom.com/']
 
@@ -37,9 +37,8 @@ class GetnoshippingSpider(scrapy.Spider):
         cursor = db.cursor()
 
         # SQL 查询还没有查询物流信息语句
-        sql = "SELECT shipping.order_id FROM shipping INNER JOIN jorder ON shipping.order_id = jorder.order_id  WHERE shipping.tracking_true = 0 AND jorder.order_status != 'refunded'"
+        sql = "SELECT shipping.order_id FROM jorder LEFT JOIN shipping ON shipping.order_id = jorder.order_id WHERE shipping.depth < 50 AND jorder.product_unitPrice * jorder.product_quantity >= 5 AND jorder.note = 1 AND jorder.order_status != 'refunded'"
         i = 0
-
         try:
             # 执行SQL语句
             cursor.execute(sql)
