@@ -7,8 +7,8 @@ import re
 
 
 
-class UpnoshippingorderSpider(scrapy.Spider):
-    name = 'upnoshippingorder'
+class UpdatelongorderSpider(scrapy.Spider):
+    name = 'updatelongorder'
     allowed_domains = ['joom']
     # start_urls = ['http://joom/']
 
@@ -38,11 +38,11 @@ class UpnoshippingorderSpider(scrapy.Spider):
         cursor = db.cursor()
 
         # SQL 查询还没有查询物流信息语句
-        sql = "SELECT shipping.order_id FROM shipping INNER JOIN jorder ON shipping.order_id = jorder.order_id  WHERE shipping.tracking_true = 0 AND jorder.order_status != 'refunded' AND jorder.note = 1"
+        sql = "SELECT order_id FROM update_order"
         # sql = "SELECT order_id FROM wuliu1"
         i = 0
         try:
-            # 执行SQL语句
+            # 执行SQL语句cral
             cursor.execute(sql)
             # 获取所有记录列表
             results = cursor.fetchall()
@@ -162,4 +162,5 @@ class UpnoshippingorderSpider(scrapy.Spider):
 
         # 关闭数据库连接
         db.close()
+
 

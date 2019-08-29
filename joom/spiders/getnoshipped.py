@@ -37,7 +37,7 @@ class GetnoshippingSpider(scrapy.Spider):
         cursor = db.cursor()
 
         # SQL 查询还没有查询物流信息语句
-        sql = "SELECT shipping.order_id FROM shipping INNER JOIN jorder ON shipping.order_id = jorder.order_id  WHERE shipping.tracking_true = 0 AND jorder.order_status != 'refunded'"
+        sql = "SELECT shipping.order_id FROM shipping INNER JOIN jorder ON shipping.order_id = jorder.order_id  WHERE shipping.tracking_true = 0 AND jorder.order_status != 'refunded' AND jorder.note = 1"
         i = 0
 
         try:
