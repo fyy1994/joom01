@@ -22,8 +22,9 @@ class GetnoshippingSpider(scrapy.Spider):
             # "Content-Type": "application/json;charset=utf-8",
             # "Host": "www.joom.com",
             # "Accept-Encoding": "gzip",
-            "Authorization": "Bearer SEV0001MTU2NDYyNDY2NHxad0Y5R21IRXA5b05ZRDJ4WDBRSUJnVXZZekRaeTNTcFBHWGtpclRDbGlJUUdsWXBKR1ZsMGJiZHhMV200MU5CNEpoMXFGR2VwVUp0bVliUEZSZDh4ZmVoOWZIckpPU1FKcDBXWWlxNjA5dmxfbDZER1dqM2ROaVV5SGpkdXRxSUhGWElzQkUzWW96bkN5LTRSUEdKODJnV3JraV9KS3NxSjFtNDRwc2ctOWRSTWNqYVlZQzF0ak9WV0o0bFBoVjZxX24yS0lBc1I4ZDlmTFBSQUZYQXzdAUMh7tF91g_u_2iK6eq5QlXqtRKfsx8Z47DqiMD_jA==",
+            "Authorization": self.settings.get('JOOM_AUTH')
         }
+
 
         # 打开数据库连接
         db = pymysql.Connect(
@@ -73,7 +74,7 @@ class GetnoshippingSpider(scrapy.Spider):
 
         # 使用cursor()方法获取操作游标
         cursor = db.cursor()
-
+        # print(2222)
         # print(response.text)
 
         shipping_re = json.loads(response.text)

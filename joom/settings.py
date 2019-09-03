@@ -19,6 +19,9 @@ LOG_LEVEL = 'WARNING'
 FEED_EXPORT_ENCODING = 'utf-8'
 
 
+JOOM_AUTH = 'Bearer SEV0001MTU2NTkzODYxNnxUOFVvQ1VBZWs1Mk92TzByc2V3RHg1cWJzOHFaNGwtMXJEREZBU0wwR0VobnNFZFpRRmI1T09UNXRjZTM1clRhM054eGVwOXhYZ3pMX2NBR2NscW1oQVBXbTVORXJ0dnpmZnlCM2t4SHZGc1NlVVVjYkxjRUc4c0FnY0dXRl8yZTJFckh5c2tKRGtHdXMxUEF5NmZBcmc5U1gyYUo4V0RWeHl6QVlVaEhBZ2l3MnJBRmlxeE5XZ2kyT3ByNWhBd2dPNk1oMU50eUlvc0dta3VPUDh4aFp3PT18UNkMpadxP1cySKXq7qLnzeSf5nF3QylP-_2URKWdhhA='
+
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'joom (+http://www.yourdomain.com)'
 
