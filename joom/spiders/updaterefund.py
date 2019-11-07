@@ -7,8 +7,8 @@ import re
 
 
 
-class UpdateorderSpider(scrapy.Spider):
-    name = 'updateorder'
+class UpdaterefundSpider(scrapy.Spider):
+    name = 'updaterefund'
     allowed_domains = ['joom']
     # start_urls = ['http://joom/']
 
@@ -39,8 +39,8 @@ class UpdateorderSpider(scrapy.Spider):
 
         # SQL 查询还没有查询物流信息语句
         # sql = "SELECT order_id FROM jorder WHERE order_status = 'fulfilledOnline' OR order_status = 'approved' "
-        sql = "SELECT shipping.order_id AS '订单号' FROM jorder LEFT JOIN shipping ON shipping.order_id = jorder.order_id LEFT JOIN store ON jorder.store_id = store.store_id WHERE shipping.tracking_true = 0 AND jorder.order_status != 'refunded' AND jorder.note = 1"
-        # sql = "SELECT order_id FROM wuliu1"
+        sql = "SELECT order_id FROM jorder WHERE order_status != 'refunded' AND note != 3"
+
         i = 0
         try:
             # 执行SQL语句
@@ -131,13 +131,13 @@ class UpdateorderSpider(scrapy.Spider):
             refund_price = product_re['refund']['price']
             refund_fraction = product_re['refund']['fraction']
 
-            sql = "UPDATE jorder SET order_time = '%s',update_timestamp = '%s',order_status = '%s',store_id = '%s',product_id = '%s',transaction_id = '%s',customer_id = '%s',product_sku = '%s',product_unitPrice = %s,product_shippingPrice = %s,product_quantity = %s,order_country = '%s',order_origAmount = %s,order_price = %s,order_cost = %s,specialLogisticsPriceConditions = '%s',joomShippingPriceUsed = '%s',shipping_Method = '%s',shipping_timestamp = '%s',shipping_provider = '%s',shipping_provider_id = '%s',shipping_trackingNumber = '%s',shipping_OrderNumber = '%s',refund_timestamp = '%s',refund_reason = '%s',refund_by = '%s',refund_cost = %s,refund_price = %s,refund_fraction = '%s' WHERE order_id = '%s'" % \
+            sql = "UPDATE jorder SET order_time = '%s',update_timestamp = '%s',order_status = '%s',store_id = '%s',product_id = '%s',transaction_id = '%s',customer_id = '%s',product_sku = '%s',product_unitPrice = %s,product_shippingPrice = %s,product_quantity = %s,order_country = '%s',order_origAmount = %s,order_price = %s,order_cost = %s,specialLogisticsPriceConditions = '%s',joomShippingPriceUsed = '%s',shipping_Method = '%s',shipping_timestamp = '%s',shipping_provider = '%s',shipping_provider_id = '%s',shipping_trackingNumber = '%s',shipping_OrderNumber = '%s',refund_timestamp = '%s',refund_reason = '%s',refund_by = '%s',refund_cost = %s,refund_price = %s,refund_fraction = '%s',note = '%s' WHERE order_id = '%s'" % \
                   (order_time, update_timestamp, order_status, store_id, product_id, transaction_id, customer_id,\
                    product_sku, product_unitPrice, \
                    product_shippingPrice, product_quantity, order_country, order_origAmount, order_price, order_cost,\
                    specialLogisticsPriceConditions, joomShippingPriceUsed, shipping_Method, shipping_timestamp, \
                    shipping_provider, shipping_provider_id, shipping_trackingNumber, shipping_OrderNumber,\
-                   refund_timestamp, refund_reason, refund_by, refund_cost, refund_price, refund_fraction, order_id)
+                   refund_timestamp, refund_reason, refund_by, refund_cost, refund_price, refund_fraction,"2", order_id)
             # print(sql)
 
         else:
