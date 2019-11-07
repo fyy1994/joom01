@@ -85,19 +85,19 @@ class GetreviewSpider(scrapy.Spider):
             sql = "INSERT INTO reviews (order_id, product_id, category_name, order_time, review_time, review_stars, review_text) \
                                                        VALUES ('%s','%s','%s','%s','%s','%s','%s')" % \
                   (order_id, product_id, categoryname, order_time, review_time, review_stars, review_text)
-            print(sql)
+            # print(sql)
             try:
                 i = i + 1
                 # 执行sql语句
                 cursor.execute(sql)
                 # 执行sql语句
                 db.commit()
-                print(i)
-                print(sql)
+                # print(i)
+                # print(sql)
             except:
                 # 发生错误时回滚
                 db.rollback()
-                print(222)
+                # print(222)
 
         # 关闭数据库连接
         db.close()
