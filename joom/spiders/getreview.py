@@ -30,7 +30,25 @@ class GetreviewSpider(scrapy.Spider):
                     'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=1200&limit=100',
                     'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=1300&limit=100',
                     'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=1400&limit=100',
-                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=1500&limit=100'
+                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=1500&limit=100',
+                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=1600&limit=100',
+                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=1700&limit=100',
+                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=1800&limit=100',
+                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=1900&limit=100',
+                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=2000&limit=100',
+                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=2100&limit=100',
+                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=2200&limit=100',
+                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=2300&limit=100',
+                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=2400&limit=100',
+                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=2500&limit=100',
+                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=2600&limit=100',
+                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=2700&limit=100',
+                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=2800&limit=100',
+                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=2900&limit=100',
+                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=3000&limit=100',
+                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=3100&limit=100',
+                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=3200&limit=100',
+                    'https://api-merchant.joom.com/api/v3/reviews/multi?orderBy=orderTimestamp&order=desc&offset=3300&limit=100'
                     ]
         headers = {
             # "Accept-Language": "zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2",
@@ -40,8 +58,6 @@ class GetreviewSpider(scrapy.Spider):
             # "Accept-Encoding": "gzip",
             "Authorization": self.settings.get('JOOM_AUTH')
         }
-
-        i = 0
 
         for url in url_list:
             yield scrapy.Request(url=url, headers=headers, callback=self.parse)

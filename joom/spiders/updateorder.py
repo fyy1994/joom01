@@ -38,7 +38,7 @@ class UpdateorderSpider(scrapy.Spider):
         cursor = db.cursor()
 
         # SQL 查询还没有查询物流信息语句
-        # sql = "SELECT order_id FROM jorder WHERE order_status = 'fulfilledOnline' OR order_status = 'approved' "
+        # sql = "SELECT order_id.order_id  FROM order_id LEFT JOIN shipping ON order_id.order_id = shipping.order_id WHERE shipping.order_id IS NULL"
         sql = "SELECT shipping.order_id AS '订单号' FROM jorder LEFT JOIN shipping ON shipping.order_id = jorder.order_id LEFT JOIN store ON jorder.store_id = store.store_id WHERE shipping.tracking_true = 0 AND jorder.order_status != 'refunded' AND jorder.note = 1"
         # sql = "SELECT order_id FROM wuliu1"
         i = 0

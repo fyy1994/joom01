@@ -69,7 +69,7 @@ for i in daipeisku_list:
     if i not in sku_b:
         sku_b.append(i)
 
-# print(sku_b)
+print(sku_b)
 f = 0
 # 获取所有的虚拟sku列表
 sku_list = msql('SELECT * FROM sku_xuni')
@@ -80,17 +80,18 @@ for row in sku_list:
     # print(xunisku)
 
     for row2 in sku_b:
+        llsku = row2[0]
         daisku =";" + row2[0] + ";"
-        # print(daisku)
+        # print(llsku)
         # print("111")
 
 
         if daisku in xunisku:
             f = f + 1
-            # updatesql = "UPDATE jorder SET product_sku = '" + str(sku) + "' WHERE product_sku = '" + str(daisku) +"'"
-            # mupdstesql(updatesql)
+            updatesql = "UPDATE jorder SET product_sku = '" + str(sku) + "' WHERE product_sku = '" + str(llsku) +"'"
+            mupdstesql(updatesql)
             print(f)
-            print("有匹配")
+            # print("有匹配")
     # print(daipeisku_list)
 
 # print(sku)

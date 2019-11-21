@@ -4,6 +4,7 @@ import json
 import jsonpath
 import pymysql
 import re
+import time
 
 
 class GetnoshippingSpider(scrapy.Spider):
@@ -74,8 +75,6 @@ class GetnoshippingSpider(scrapy.Spider):
 
         # 使用cursor()方法获取操作游标
         cursor = db.cursor()
-        # print(2222)
-        # print(response.text)
 
         shipping_re = json.loads(response.text)
         # print(shipping_re)
@@ -84,7 +83,7 @@ class GetnoshippingSpider(scrapy.Spider):
         #                    VALUES ('%s',%s,%s,'%s','%s','%s',%s,%s)" % \
         #           (str(re.compile(r"(?<==)(.+?)\b").search(response.request.url).group(0)), True, False, 10, '0', '0', False, '0')
         # else:
-
+        # print(shipping_re)
         # 处理数据
         order_id = str(re.compile(r"(?<==)(.+?)\b").search(response.request.url).group(0))
         # 如果有结果返回的类型是list 否则 为false
@@ -106,9 +105,10 @@ class GetnoshippingSpider(scrapy.Spider):
 
         # print(sql)
         try:
-            # 执行sql语句
+            pass
+            # # 执行sql语句
             cursor.execute(sql)
-            # 执行sql语句
+            # # 执行sql语句
             db.commit()
         except:
             # 发生错误时回滚
