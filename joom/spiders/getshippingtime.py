@@ -107,6 +107,7 @@ class GetshippingtimeSpider(scrapy.Spider):
 
         # print(sql)
         try:
+            print(sql)
             # 执行sql语句
             cursor.execute(sql)
             # 执行sql语句
